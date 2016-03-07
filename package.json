@@ -1,6 +1,6 @@
 {
-  "name": "cov",
-  "version": "1.0.0",
+  "name": "covjs",
+  "version": "1.0.1",
   "description": "A super lightweight pub-sub module",
   "main": "cov.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/covjs/covjs.git"
+    "url": "git+https://github.com/devor/covjs.git"
   },
   "author": {
     "email": "davedevor@gmail.com",
@@ -16,7 +16,7 @@
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/covjs/covjs/issues"
+    "url": "https://github.com/devor/covjs/issues"
   },
-  "homepage": "https://github.com/covjs/covjs#readme"
+  "homepage": "https://github.com/devor/covjs#readme"
 }

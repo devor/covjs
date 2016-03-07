@@ -19,16 +19,16 @@ function _isFn(fn) {
 var Cov = {
 
 	/**
-  * Store all of our covenants
-  * @type  {Array}
-  */
+	 * Store all of our covenants
+	 * @type  {Array}
+	 */
 	covenants: [],
 
 	/**
-  * Register an event, or add to an existing event
-  * @param   {String}  name    Name of the event like: 'loaded'
-  * @param   {Function}  fn    The closure to execute when signaled.
-  */
+	 * Register an event, or add to an existing event
+	 * @param   {String}  name    Name of the event like: 'loaded'
+	 * @param   {Function}  fn    The closure to execute when signaled.
+	 */
 	on: function on() {
 		var name = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
 		var fn = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
@@ -63,10 +63,10 @@ var Cov = {
 
 
 	/**
-  * Signal an event and run all of its subscribed functions.
-  * @param {String}    name  Name of the event like: 'loaded';
-  * @param {object[]}  args  Any arguments that need to be sent to the  fn
-  */
+	 * Signal an event and run all of its subscribed functions.
+	 * @param {String}    name  Name of the event like: 'loaded';
+	 * @param {object[]}  args  Any arguments that need to be sent to the  fn
+	 */
 	signal: function signal() {
 		var name = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
 		var args = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
@@ -88,9 +88,9 @@ var Cov = {
 
 
 	/**
-  * Unregister (turn off) an event.
-  * @param  {String}  Name of the event like: 'loaded';
-  */
+	 * Unregister (turn off) an event.
+	 * @param  {String}  Name of the event like: 'loaded';
+	 */
 	off: function off() {
 		var name = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
 
@@ -104,7 +104,8 @@ var Cov = {
 				}
 			});
 		}
-	}
+	},
+
 };
 
 exports.default = Cov;
