@@ -108,4 +108,4 @@ var Cov = {
 
 };
 
-exports.default = Cov;
+module.exports = Cov;
