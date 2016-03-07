@@ -17,12 +17,12 @@ var cov = require('covjs');
 ```javascript
 // Subscribe to the 'Cov-Name' covenant, execute function when signaled
 cov.on('Cov-Name', function(arg1, arg2) {
-	var data = {
-		foo: arg1,
-		bar: arg2
-	};
+    var data = {
+        foo: arg1,
+        bar: arg2
+    };
 
-	doSomething(data)
+    doSomething(data)
 })
 ```
 
