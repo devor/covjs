@@ -1,0 +1,93 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/Cellar/node/5.4.1_1/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'publish' ]
+2 info using npm@3.5.3
+3 info using node@v5.4.1
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/Users/david.devor/Projects/cov',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /Users/david.devor/.npm/cov/1.0.0/package.tgz not in flight; packing
+9 info lifecycle cov@1.0.0~prepublish: cov@1.0.0
+10 silly lifecycle cov@1.0.0~prepublish: no script for prepublish, continuing
+11 verbose tar pack [ '/Users/david.devor/.npm/cov/1.0.0/package.tgz',
+11 verbose tar pack   '/Users/david.devor/Projects/cov' ]
+12 verbose tarball /Users/david.devor/.npm/cov/1.0.0/package.tgz
+13 verbose folder /Users/david.devor/Projects/cov
+14 verbose addLocalTarball adding from inside cache /Users/david.devor/.npm/cov/1.0.0/package.tgz
+15 silly cache afterAdd cov@1.0.0
+16 verbose afterAdd /Users/david.devor/.npm/cov/1.0.0/package/package.json not in flight; writing
+17 verbose afterAdd /Users/david.devor/.npm/cov/1.0.0/package/package.json written
+18 silly publish { name: 'cov',
+18 silly publish   version: '1.0.0',
+18 silly publish   description: 'A super lightweight pub-sub module',
+18 silly publish   main: 'cov.js',
+18 silly publish   scripts: { test: 'echo "Error: no test specified" && exit 1' },
+18 silly publish   repository: { type: 'git', url: 'git+https://github.com/covjs/covjs.git' },
+18 silly publish   author: { name: 'Dave Devor', email: 'davedevor@gmail.com' },
+18 silly publish   license: 'ISC',
+18 silly publish   bugs: { url: 'https://github.com/covjs/covjs/issues' },
+18 silly publish   homepage: 'https://github.com/covjs/covjs#readme',
+18 silly publish   readme: '# covjs\n\nA super lightweight pubsub module.\n---\n\n* Written as a node module.\n* ES5\n',
+18 silly publish   readmeFilename: 'README.md',
+18 silly publish   gitHead: '13ead02fcce3dcdb663e17393c52ab551e375906',
+18 silly publish   _id: 'cov@1.0.0',
+18 silly publish   _shasum: 'c682a7cd0f1f956b33dfec5d1926913ff3d76511',
+18 silly publish   _from: '.' }
+19 verbose getPublishConfig undefined
+20 silly mapToRegistry name cov
+21 silly mapToRegistry using default registry
+22 silly mapToRegistry registry https://registry.npmjs.org/
+23 silly mapToRegistry uri https://registry.npmjs.org/cov
+24 verbose publish registryBase https://registry.npmjs.org/
+25 silly publish uploading /Users/david.devor/.npm/cov/1.0.0/package.tgz
+26 verbose request uri https://registry.npmjs.org/cov
+27 verbose request sending authorization for write operation
+28 info attempt registry request try #1 at 2:39:03 PM
+29 verbose request using bearer token for auth
+30 verbose request id bca0d0300bf40e5f
+31 http request PUT https://registry.npmjs.org/cov
+32 http 403 https://registry.npmjs.org/cov
+33 verbose headers { 'content-type': 'application/json',
+33 verbose headers   'cache-control': 'max-age=300',
+33 verbose headers   'content-length': '95',
+33 verbose headers   'accept-ranges': 'bytes',
+33 verbose headers   date: 'Mon, 07 Mar 2016 19:39:04 GMT',
+33 verbose headers   via: '1.1 varnish',
+33 verbose headers   connection: 'keep-alive',
+33 verbose headers   'x-served-by': 'cache-dfw1827-DFW',
+33 verbose headers   'x-cache': 'MISS',
+33 verbose headers   'x-cache-hits': '0',
+33 verbose headers   'x-timer': 'S1457379543.554548,VS0,VE469' }
+34 verbose request invalidating /Users/david.devor/.npm/registry.npmjs.org/cov on PUT
+35 error publish Failed PUT 403
+36 verbose stack Error: You do not have permission to publish 'cov'. Are you logged in as the correct user? : cov
+36 verbose stack     at makeError (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:264:12)
+36 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:252:14)
+36 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:172:14)
+36 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:198:22)
+36 verbose stack     at emitTwo (events.js:87:13)
+36 verbose stack     at Request.emit (events.js:172:7)
+36 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1035:10)
+36 verbose stack     at emitOne (events.js:82:20)
+36 verbose stack     at Request.emit (events.js:169:7)
+36 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:962:12)
+37 verbose statusCode 403
+38 verbose pkgid cov
+39 verbose cwd /Users/david.devor/Projects/cov
+40 error Darwin 15.3.0
+41 error argv "/usr/local/Cellar/node/5.4.1_1/bin/node" "/usr/local/bin/npm" "publish"
+42 error node v5.4.1
+43 error npm  v3.5.3
+44 error code E403
+45 error You do not have permission to publish 'cov'. Are you logged in as the correct user? : cov
+46 error If you need help, you may report this error at:
+46 error     <https://github.com/npm/npm/issues>
+47 verbose exit [ 1, true ]
