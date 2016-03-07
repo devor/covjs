@@ -1,6 +1,6 @@
 # covjs
 
-A super lightweight pubsub module. 
+A super lightweight pubsub module. < 1Kb minified. 
 
 _Cov is short for covenants._
 
@@ -23,7 +23,7 @@ cov.on('Cov-Name', function(arg1, arg2) {
     };
 
     doSomething(data)
-})
+});
 ```
 
 ### Signal a covenant (publish)

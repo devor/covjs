@@ -1,6 +1,6 @@
 {
   "name": "covjs",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A super lightweight pub-sub module",
   "main": "cov.js",
   "scripts": {
@@ -18,5 +18,14 @@
   "bugs": {
     "url": "https://github.com/devor/covjs/issues"
   },
-  "homepage": "https://github.com/devor/covjs#readme"
+  "homepage": "https://github.com/devor/covjs#readme",
+  "keywords" : [
+    "pub sub",
+    "publish",
+    "subscribe",
+    "observer",
+    "mediator",
+    "events",
+    "decoupling"
+  ]
 }
