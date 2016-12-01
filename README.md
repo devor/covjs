@@ -1,6 +1,6 @@
 # covjs
 
-A super lightweight pubsub module. < 1Kb minified. 
+A super lightweight pubsub module. Around 1Kb minified.
 
 _Cov is short for covenants._
 
@@ -32,8 +32,33 @@ cov.on('Cov-Name', function(arg1, arg2) {
 cov.signal('Cov-Name', ['argument 1', 'argument 2']);
 ```
 
-### Unsubscribe from a Covenant
+### Unsubscribe all from a Covenant
+
+#### To unsubscribe all listeners from a Covenant:
 ```javascript
 // unsubscribe from 'Cov-Name'
 cov.off('Cov-Name');
+```
+
+#### To unsubscribe one specific listener from a Covenant:
+
+You'll need to save the token returned by your call to `cov.on()`
+
+```javascript
+var firstListener = cov.on('foo', function() {
+	console.log('First Listener has fired!');
+});
+
+var secondListener = cov.on('foo', function() {
+	console.log('Second listener has fired!');
+});
+
+// Both First and Second Listeners will fire
+cov.signal('foo');
+
+// Unsubscribe just the first Listener
+cov.off('foo', firstListener);
+
+// Only Second Listener will fire
+cov.signal('foo');
 ```

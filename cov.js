@@ -19,6 +19,12 @@ function _isFn(fn) {
 var Cov = {
 
 	/**
+	 * Store incrementing ID for each passed callback
+	 * @type  {Int}
+	 */
+	callbackId: 0,
+
+	/**
 	 * Store all of our covenants
 	 * @type  {Array}
 	 */
@@ -28,6 +34,7 @@ var Cov = {
 	 * Register an event, or add to an existing event
 	 * @param   {String}  name    Name of the event like: 'loaded'
 	 * @param   {Function}  fn    The closure to execute when signaled.
+	 * @return  {Mixed}           Unique ID for listener or false on incorrect parameters
 	 */
 	on: function on() {
 		var name = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
@@ -38,12 +45,16 @@ var Cov = {
 
 		if (name && fn && isFn) {
 			var _exists = false;
+			var cbObj = {
+				id: 'cov_' + (++this.callbackId),
+				fn: fn
+			}
 
 			// check if this even exists
 			this.covenants.forEach(function (cov) {
 				// If it already exists, add the function to its functions.
 				if (cov.name === name) {
-					cov.callbacks.push(fn);
+					cov.callbacks.push(cbObj);
 					_exists = true;
 					return;
 				}
@@ -53,12 +64,14 @@ var Cov = {
 			if (!_exists) {
 				var newCovenant = {
 					name: name,
-					callbacks: [fn]
+					callbacks: [cbObj]
 				};
 
 				this.covenants.push(newCovenant);
 			}
+			return cbObj.id;
 		}
+		return false;
 	},
 
 
@@ -76,8 +89,8 @@ var Cov = {
 			this.covenants.forEach(function (cov) {
 				if (cov.name === name) {
 
-					cov.callbacks.forEach(function (fn) {
-						fn.apply(null, args);
+					cov.callbacks.forEach(function (cbObj) {
+						cbObj.fn.apply(null, args);
 					});
 
 					return;
@@ -90,16 +103,26 @@ var Cov = {
 	/**
 	 * Unregister (turn off) an event.
 	 * @param  {String}  Name of the event like: 'loaded';
+	 * @param  {String}  ID of listener as returned by `on` function
 	 */
 	off: function off() {
 		var name = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
+		var id = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
 
 		if (name) {
-			this.covenants.forEach(function (ev, index, arr) {
-				if (ev.name === name) {
-
-					arr.splice(index, 1);
-
+			this.covenants.forEach(function (cov, index, arr) {
+				if (cov.name === name) {
+					// If no ID is passed, remove all listeners
+					if (!id) {
+						arr.splice(index, 1);
+					} else {
+					// Otherwise just remove specified callback
+						cov.callbacks.forEach(function(cbObj, ix, callbacks) {
+							if (cbObj.id === id) {
+								callbacks.splice(ix, 1);
+							}
+						});
+					}
 					return;
 				}
 			});
