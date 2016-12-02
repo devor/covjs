@@ -85,10 +85,10 @@ var Cov = {
 		var name = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
 		var fn = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
 
-		var newId = callbackId + 1;
+		var newId = 'cov_' + (callbackId + 1);
 		var oneTimeFunc = function() {
 			fn.apply(null, arguments);
-			this.off(name, 'cov_' + newId);
+			this.off(name, newId);
 		}.bind(this);
 
 		this.on(name, oneTimeFunc);
