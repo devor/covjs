@@ -13,22 +13,22 @@ function _isFn(fn) {
 }
 
 /**
+ * Store incrementing ID for each passed callback
+ * @type  {Int}
+ */
+var callbackId = 0;
+
+/**
+ * Store all of our covenants
+ * @type  {Array}
+ */
+var covenants = [];
+
+/**
  * One object to hold all of the apps covenants.
  * @type {Object}
  */
 var Cov = {
-
-	/**
-	 * Store incrementing ID for each passed callback
-	 * @type  {Int}
-	 */
-	callbackId: 0,
-
-	/**
-	 * Store all of our covenants
-	 * @type  {Array}
-	 */
-	covenants: [],
 
 	/**
 	 * Register an event, or add to an existing event
@@ -46,12 +46,12 @@ var Cov = {
 		if (name && fn && isFn) {
 			var _exists = false;
 			var cbObj = {
-				id: 'cov_' + (++this.callbackId),
+				id: 'cov_' + (++callbackId),
 				fn: fn
 			}
 
 			// check if this even exists
-			this.covenants.forEach(function (cov) {
+			covenants.forEach(function (cov) {
 				// If it already exists, add the function to its functions.
 				if (cov.name === name) {
 					cov.callbacks.push(cbObj);
@@ -67,7 +67,7 @@ var Cov = {
 					callbacks: [cbObj]
 				};
 
-				this.covenants.push(newCovenant);
+				covenants.push(newCovenant);
 			}
 			return cbObj.id;
 		}
@@ -77,8 +77,9 @@ var Cov = {
 
 	/**
 	 * Signal an event and run all of its subscribed functions.
-	 * @param {String}    name  Name of the event like: 'loaded';
-	 * @param {object[]}  args  Any arguments that need to be sent to the  fn
+	 * @param  {String}    name  Name of the event like: 'loaded';
+	 * @param  {object[]}  args  Any arguments that need to be sent to the  fn
+	 * @return {object}          Current instance of Cov, to allow for chaining
 	 */
 	signal: function signal() {
 		var name = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
@@ -86,7 +87,7 @@ var Cov = {
 
 
 		if (name) {
-			this.covenants.forEach(function (cov) {
+			covenants.forEach(function (cov) {
 				if (cov.name === name) {
 
 					cov.callbacks.forEach(function (cbObj) {
@@ -97,6 +98,8 @@ var Cov = {
 				}
 			});
 		}
+
+		return this;
 	},
 
 
@@ -104,13 +107,14 @@ var Cov = {
 	 * Unregister (turn off) an event.
 	 * @param  {String}  Name of the event like: 'loaded';
 	 * @param  {String}  ID of listener as returned by `on` function
+	 * @return {object}  Current instance of Cov, to allow for chaining
 	 */
 	off: function off() {
 		var name = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
 		var id = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
 
 		if (name) {
-			this.covenants.forEach(function (cov, index, arr) {
+			covenants.forEach(function (cov, index, arr) {
 				if (cov.name === name) {
 					// If no ID is passed, remove all listeners
 					if (!id) {
@@ -127,8 +131,9 @@ var Cov = {
 				}
 			});
 		}
-	},
 
+		return this;
+	}
 };
 
 module.exports = Cov;
