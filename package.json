@@ -1,10 +1,11 @@
 {
   "name": "covjs",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "A super lightweight pub-sub module",
   "main": "cov.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test:watch": "jest --watch",
+    "test": "jest --coverage --verbose"
   },
   "repository": {
     "type": "git",
@@ -19,7 +20,7 @@
     "url": "https://github.com/devor/covjs/issues"
   },
   "homepage": "https://github.com/devor/covjs#readme",
-  "keywords" : [
+  "keywords": [
     "pub sub",
     "publish",
     "subscribe",
@@ -27,5 +28,8 @@
     "mediator",
     "events",
     "decoupling"
-  ]
+  ],
+  "devDependencies": {
+    "jest": "^26.6.3"
+  }
 }
