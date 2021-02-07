@@ -10,6 +10,9 @@ describe("#on", () => {
 
     cov.signal("asdf");
     expect(callback).toHaveBeenCalledTimes(2);
+
+    cov.signal("asdf");
+    expect(callback).toHaveBeenCalledTimes(3);
   });
 
   itHandlesInvalidArguments("on");
@@ -133,7 +136,7 @@ describe("#signal", () => {
 });
 
 describe("multiple instances", () => {
-  it("Calling off on one instance leaves the other instance unaffected", () => {
+  it("leaves the other instance unaffected when calling #off on one instance ", () => {
     const cov1 = new Covenant();
     const cov2 = new Covenant();
     const callback1 = jest.fn();
@@ -151,7 +154,7 @@ describe("multiple instances", () => {
     expect(callback2).toHaveBeenCalledTimes(1);
   });
 
-  it("signaling on on instance does not call any callbacks on other instances", () => {
+  it("does not call any callbacks on other instances when calling #signal one instance", () => {
     const cov1 = new Covenant();
     const cov2 = new Covenant();
     const callback1 = jest.fn();
