@@ -65,8 +65,9 @@ cov.off('Cov-Name');
 
 #### To unsubscribe one specific listener from a Covenant:
 
-You'll need to save the token returned by your call to `cov.on()`
+You'll need to save the token returned by your call to `cov.on()` or you can pass the same function to cov.off that you passed to the cov.on function.
 
+**Unsubscribe using token**
 ```javascript
 var firstListener = cov.on('Cov-Name', function() {
 	console.log('First Listener has fired!');
@@ -83,5 +84,24 @@ cov.signal('Cov-Name');
 cov.off('Cov-Name', firstListener);
 
 // Only Second Listener will fire
+cov.signal('Cov-Name');
+```
+
+**Unsubscribe using function reference**
+```javascript
+var callback = function() {
+    console.log('First Listener has fired!');
+};
+
+// Subscribe callback
+cov.on('Cov-Name', callback);
+
+// Callback will fire
+cov.signal('Cov-Name');
+
+// Unsubscribe callback
+cov.off('Cov-Name', callback);
+
+// Callback will NOT fire
 cov.signal('Cov-Name');
 ```

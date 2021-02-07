@@ -13,7 +13,7 @@ function Covenant() {
 	 *
 	 * @returns {Boolean}
 	 */
-	function _isFn(fn) {
+	function isFn(fn) {
 		return Object.prototype.toString.call(fn) === '[object Function]';
 	}
 
@@ -40,9 +40,7 @@ function Covenant() {
 		var fn = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
 
 		// Make sure the fn is a function
-		var isFn = _isFn(fn);
-
-		if (name && fn && isFn) {
+		if (name && fn && isFn(fn)) {
 			var _exists = false;
 			var cbObj = {
 				id: 'cov_' + (++callbackId),
@@ -83,9 +81,7 @@ function Covenant() {
 		var name = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
 		var fn = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
 
-		var isFn = _isFn(fn);
-
-		if (name && fn && isFn) {
+		if (name && fn && isFn(fn)) {
 			var newId = 'cov_' + (callbackId + 1);
 			var oneTimeFunc = function() {
 				fn.apply(null, arguments);
@@ -128,9 +124,9 @@ function Covenant() {
 
 	/**
 	 * Unregister (turn off) an event.
-	 * @param  {String}  Name of the event like: 'loaded';
-	 * @param  {String}  ID of listener as returned by `on` function
-	 * @return {object}  Current instance of Cov, to allow for chaining
+	 * @param  {String}           Name of the event like: 'loaded';
+	 * @param  {String|Function}  ID of listener as returned by `on` function, or the original function
+	 * @return {object}           Current instance of Cov, to allow for chaining
 	 */
 	this.off = function off() {
 		var name = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
@@ -142,10 +138,12 @@ function Covenant() {
 					// If no ID is passed, remove all listeners
 					if (!id) {
 						arr.splice(index, 1);
-					} else {
+					}
+					else {
 					// Otherwise just remove specified callback
-						cov.callbacks.forEach(function(cbObj, ix, callbacks) {
-							if (cbObj.id === id) {
+						cov.callbacks.forEach(function (cbObj, ix, callbacks) {
+							// Remove based off ID or the reference of the function passed matches original
+							if (cbObj.id === id || (isFn(id) && cbObj.fn === id)) {
 								callbacks.splice(ix, 1);
 							}
 						});

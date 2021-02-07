@@ -51,7 +51,26 @@ describe("#off", () => {
     expect(callback).toHaveBeenCalledTimes(2);
     expect(callback2).toHaveBeenCalledTimes(2);
   });
+  
+  it("unsubscribes listener if function is passed instead of id", () => {
+    const callback = jest.fn();
+    const callback2 = jest.fn();
 
+    cov.on("abc.def", callback);
+    cov.on("abc.def", callback2);
+
+    cov.signal("abc.def");
+    cov.signal("abc.def");
+    expect(callback).toHaveBeenCalledTimes(2);
+    expect(callback2).toHaveBeenCalledTimes(2);
+
+    cov.off("abc.def", callback);
+
+    cov.signal("abc.def");
+    expect(callback).toHaveBeenCalledTimes(2);
+    expect(callback2).toHaveBeenCalledTimes(3);
+  });
+  
   describe("when passing a specific listener", () => {
     it("leaves other listeners in place", () => {
       const callback = jest.fn();
@@ -72,6 +91,7 @@ describe("#off", () => {
       expect(callback2).toHaveBeenCalledTimes(3);
     });
   });
+
 
   it("does nothing when no event name is passed", () => {
     const callback = jest.fn();
