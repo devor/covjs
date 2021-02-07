@@ -3,32 +3,31 @@
  */
 
 /**
- * Checks if a variable is a function
- * @param  {Function} fn
- *
- * @returns {Boolean}
+ * Constuctor to create an object to hold all of the apps covenants.
+ * @type {Function}
  */
-function _isFn(fn) {
-	return Object.prototype.toString.call(fn) === '[object Function]';
-}
+function Covenant() {
+	/**
+	 * Checks if a variable is a function
+	 * @param  {Function} fn
+	 *
+	 * @returns {Boolean}
+	 */
+	function _isFn(fn) {
+		return Object.prototype.toString.call(fn) === '[object Function]';
+	}
 
-/**
- * Store incrementing ID for each passed callback
- * @type  {Int}
- */
-var callbackId = 0;
+	/**
+	 * Store incrementing ID for each passed callback
+	 * @type  {Int}
+	 */
+	var callbackId = 0;
 
-/**
- * Store all of our covenants
- * @type  {Array}
- */
-var covenants = [];
-
-/**
- * One object to hold all of the apps covenants.
- * @type {Object}
- */
-var Cov = {
+	/**
+	 * Store all of our covenants
+	 * @type  {Array}
+	 */
+	var covenants = [];
 
 	/**
 	 * Register an event, or add to an existing event
@@ -36,7 +35,7 @@ var Cov = {
 	 * @param   {Function}  fn    The closure to execute when signaled.
 	 * @return  {Mixed}           Unique ID for listener or false on incorrect parameters
 	 */
-	on: function on() {
+	this.on = function on() {
 		var name = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
 		var fn = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
 
@@ -72,8 +71,7 @@ var Cov = {
 			return cbObj.id;
 		}
 		return false;
-	},
-
+	};
 
 	/**
 	 * Register an event to fire only once
@@ -81,21 +79,26 @@ var Cov = {
 	 * @param   {Function}  fn    The closure to execute when signaled.
 	 * @return  {Mixed}           Unique ID for listener or false on incorrect parameters
 	 */
-	once: function once() {
+	this.once = function once() {
 		var name = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
 		var fn = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
 
-		var newId = 'cov_' + (callbackId + 1);
-		var oneTimeFunc = function() {
-			fn.apply(null, arguments);
-			this.off(name, newId);
-		}.bind(this);
+		var isFn = _isFn(fn);
 
-		this.on(name, oneTimeFunc);
+		if (name && fn && isFn) {
+			var newId = 'cov_' + (callbackId + 1);
+			var oneTimeFunc = function() {
+				fn.apply(null, arguments);
+				this.off(name, newId);
+			}.bind(this);
 
-		return newId;
-	},
+			this.on(name, oneTimeFunc);
 
+			return newId;
+		}
+
+		return false;
+	};
 
 	/**
 	 * Signal an event and run all of its subscribed functions.
@@ -103,10 +106,9 @@ var Cov = {
 	 * @param  {object[]}  args  Any arguments that need to be sent to the  fn
 	 * @return {object}          Current instance of Cov, to allow for chaining
 	 */
-	signal: function signal() {
+	this.signal = function signal() {
 		var name = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
 		var args = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
-
 
 		if (name) {
 			covenants.forEach(function (cov) {
@@ -122,8 +124,7 @@ var Cov = {
 		}
 
 		return this;
-	},
-
+	};
 
 	/**
 	 * Unregister (turn off) an event.
@@ -131,7 +132,7 @@ var Cov = {
 	 * @param  {String}  ID of listener as returned by `on` function
 	 * @return {object}  Current instance of Cov, to allow for chaining
 	 */
-	off: function off() {
+	this.off = function off() {
 		var name = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
 		var id = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
 
@@ -155,7 +156,12 @@ var Cov = {
 		}
 
 		return this;
-	}
-};
+	};
+}
 
-module.exports = Cov;
+var cov = new Covenant();
+
+module.exports = {
+	cov: cov,
+	Covenant: Covenant
+};

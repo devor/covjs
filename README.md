@@ -1,6 +1,6 @@
 # covjs
 
-A super lightweight pubsub module. Around 1Kb minified, _under 500B minified and gzipped_.
+A super lightweight pubsub module. Around 1Kb minified, _~500B minified and gzipped_.
 
 _Cov is short for covenants._
 
@@ -9,8 +9,17 @@ _Cov is short for covenants._
 * NPM: `npm install covjs`
 
 ### Import the module
+A global `cov` object is exported for quick and convienient usage.
 ```javascript
-var cov = require('covjs');
+var { cov } = require('covjs');
+```
+
+If you require multiple instances or other complex use-cases, a `Covenant` function
+is exported so you can create your own `cov` object.
+
+```javascript
+var { Covenant } = require('covjs');
+var cov = new Covenant();
 ```
 
 ### Subscribe to a covenant
